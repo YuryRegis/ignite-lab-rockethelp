@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 
+import { Alert } from "react-native";
+import { Input } from "../components/Input";
+import { Button } from "../components/Button";
 import { Header } from "../components/Header";
 import { Loading } from "../components/Loading";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { IOrderFirestoreDTO } from "../DTOs/orderDTO";
 import { CardDetails } from "../components/CardDetails";
 import Firestore from "@react-native-firebase/firestore";
@@ -15,8 +18,6 @@ import {
 } from "phosphor-react-native";
 
 import { dateFormat } from "../utils";
-import { Input } from "../components/Input";
-import { Button } from "../components/Button";
 interface IRouteParams {
   orderId: string;
 }
@@ -36,6 +37,8 @@ export function Details() {
 
   const { colors } = useTheme();
   const { params } = useRoute();
+  const { goBack } = useNavigation();
+
   const { orderId } = params as IRouteParams;
 
   useEffect(() => {
@@ -51,7 +54,7 @@ export function Details() {
           patrimony: data.patrimony,
           solution: data.solution,
           status: data.status,
-          closed: data.closed,
+          closed: data.closedAt ? dateFormat(data.closedAt) : "",
           when: data.createdAt ? dateFormat(data.createdAt) : "",
         } as IOrderDetails);
         setIsLoading(false);
@@ -59,6 +62,30 @@ export function Details() {
   }, []);
 
   if (isLoading) return <Loading />;
+
+  function handleOrderClose() {
+    if (!solution) {
+      return Alert.alert(
+        "Solicitação",
+        "Informe uma solução para fechar a solicitação."
+      );
+    }
+    Firestore()
+      .collection<IOrderFirestoreDTO>("orders")
+      .doc(orderId)
+      .update({
+        solution,
+        status: "close",
+        closedAt: Firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        Alert.alert("Solicitação", "Solicitação encerrada com sucesso.");
+      })
+      .catch((_) => {
+        Alert.alert("Solicitação", "Erro ao encerrar a solicitação.");
+      })
+      .finally(() => goBack());
+  }
 
   return (
     <VStack flex={1} py={6} bg="gray.700">
@@ -100,22 +127,25 @@ export function Details() {
 
         <CardDetails
           title="Solução"
+          description={order.solution}
           icon={CircleWavyCheck}
-          footer={order.closed && `Encerrado em ${order.closed}`}
+          footer={order.status === "close" && `Encerrado em ${order.closed}`}
         >
-          <Input
-            h={24}
-            multiline
-            bg="gray.600"
-            textAlignVertical="top"
-            onChangeText={setSolution}
-            placeholder="Descrição da solução"
-          />
+          {order.status === "open" && (
+            <Input
+              h={24}
+              multiline
+              bg="gray.600"
+              textAlignVertical="top"
+              onChangeText={setSolution}
+              placeholder="Descrição da solução"
+            />
+          )}
         </CardDetails>
       </ScrollView>
 
-      {!order.closed && (
-        <Button title="Encerrar solicitação" onPress={() => {}} m={5} />
+      {order.status === "open" && (
+        <Button title="Encerrar solicitação" onPress={handleOrderClose} m={5} />
       )}
     </VStack>
   );
