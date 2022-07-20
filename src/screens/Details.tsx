@@ -115,7 +115,6 @@ export function Details() {
           title="Equipamento"
           description={`Patrimônio: ${order.patrimony}`}
           icon={DesktopTower}
-          footer={order.when}
         />
 
         <CardDetails
