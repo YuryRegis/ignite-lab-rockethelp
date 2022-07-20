@@ -1,8 +1,8 @@
 # Ignite Lab #03 - RocketHelp
 
-Projeto elaborado pela <b>roketSeat</b> que tem como proposta o estudo no desenvolvimento de uma solução mobile com <b>ReactNative</b>. <br/>
+Projeto elaborado pela <b>roketSeat</b> que tem como proposta o estudo no desenvolvimento de uma solução mobile com <b>ReactNative</b> e Expo bare workflow. <br/>
 ### Contexto
-Desenvolver uma simulação de um <i>"help service desk"</i> de uma empresa. Neste senário será possível reportar equipamentos (patrimônios) com defeito, como também, registrar uma tratativa para o mesmo.
+Desenvolver uma simulação de um <i>"help service desk"</i> de uma empresa. Neste cenário será possível reportar equipamentos (patrimônios) com defeito, como também, registrar uma tratativa para o mesmo.
 
 ### Objetivos
  - Criar e configurar um projeto com o ![Expo bare workflow](https://docs.expo.dev/bare/exploring-bare-workflow/);
@@ -12,7 +12,7 @@ Desenvolver uma simulação de um <i>"help service desk"</i> de uma empresa. Nes
 
 ### OBSERVAÇÃO
 
-O repositório foi dividido intencionalmente em branches com as respectivas aulas, ministradas pelo professor ![Rodrigo Gonçalves](https://github.com/rodrigorgtic), totalizando então 3 aulas, sendo da aula-2 até a aula-4.
+O repositório foi dividido intencionalmente em branches com as respectivas aulas, ministradas pelo professor ![Rodrigo Gonçalves](https://github.com/rodrigorgtic), totalizando então 3 aulas, inciando então na ![aula-2](https://github.com/YuryRegis/ignite-lab-rockethelp/tree/aula-2) e finalizando na ![aula-4](https://github.com/YuryRegis/ignite-lab-rockethelp/tree/aula-4).
 
 ---
 
