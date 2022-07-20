@@ -1,20 +1,36 @@
-import { useState } from 'react';
-import { VStack, Heading, Icon, useTheme } from 'native-base';
-import { Envelope, Key } from 'phosphor-react-native';
+import React, { useState } from "react";
+import { Alert } from "react-native";
+import auth from "@react-native-firebase/auth";
+import { VStack, Heading, Icon, useTheme } from "native-base";
+import { Envelope, Key } from "phosphor-react-native";
 
-import Logo from '../assets/logo_primary.svg';
+import Logo from "../assets/logo_primary.svg";
 
-import { Input } from '../components/Input';
-import { Button } from '../components/Button';
+import { Input } from "../components/Input";
+import { Button } from "../components/Button";
 
 export function SignIn() {
-  const [name, setName] = useState('João');
-  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("João");
+  const [password, setPassword] = useState("");
 
   const { colors } = useTheme();
 
   function handleSignIn() {
-    console.log(name, password);
+    if (!name || !password) {
+      return Alert.alert("Auth", "Preencha todos os campos");
+    }
+    setLoading(true);
+    auth()
+      .signInWithEmailAndPassword(name, password)
+      .catch(({ code }) => {
+        if (!code) return Alert.alert("Error", "Erro desconhecido.");
+        const response = code.split("/");
+        const title = response[0];
+        const message = response[1].split("-").join(" ");
+        Alert.alert(title, message);
+      })
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -28,7 +44,9 @@ export function SignIn() {
       <Input
         mb={4}
         placeholder="E-mail"
-        InputLeftElement={<Icon as={<Envelope color={colors.gray[300]} />} ml={4} />}
+        InputLeftElement={
+          <Icon as={<Envelope color={colors.gray[300]} />} ml={4} />
+        }
         onChangeText={setName}
       />
 
@@ -40,7 +58,12 @@ export function SignIn() {
         onChangeText={setPassword}
       />
 
-      <Button title="Entrar" w="full" onPress={handleSignIn} />
+      <Button
+        w="full"
+        title="Entrar"
+        isLoading={loading}
+        onPress={handleSignIn}
+      />
     </VStack>
-  )
+  );
 }

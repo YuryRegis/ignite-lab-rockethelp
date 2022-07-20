@@ -1,3 +1,4 @@
+import React, { Alert } from "react-native";
 import {
   HStack,
   IconButton,
@@ -13,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { Filter } from "../components/Filter";
 import { Button } from "../components/Button";
+import auth from "@react-native-firebase/auth";
 import Logo from "../assets/logo_secondary.svg";
 import { IOrder, Order } from "../components/Order";
 import { ChatTeardropText, SignOut } from "phosphor-react-native";
@@ -40,6 +42,14 @@ export function Home() {
     navigate("Details", { orderId: order.id });
   }
 
+  function handleSignOut() {
+    auth()
+      .signOut()
+      .catch((_) => {
+        return Alert.alert("SignOut", "Não foi possível sair.");
+      });
+  }
+
   return (
     <VStack flex={1} pb={6} bg="gray.700">
       <HStack
@@ -47,12 +57,16 @@ export function Home() {
         justifyContent="space-between"
         alignItems="center"
         bg="gray.600"
-        pb={5}
         pt={12}
+        pb={5}
         px={6}
       >
         <Logo />
-        <IconButton icon={<SignOut size={26} color={colors.gray[300]} />} />
+
+        <IconButton
+          icon={<SignOut size={26} color={colors.gray[300]} />}
+          onPress={handleSignOut}
+        />
       </HStack>
 
       <VStack flex={1} px={6}>
@@ -64,6 +78,7 @@ export function Home() {
           alignItems="center"
         >
           <Heading color="gray.100">Solicitações</Heading>
+
           <Text color="gray.200">{orders.length}</Text>
         </HStack>
 
