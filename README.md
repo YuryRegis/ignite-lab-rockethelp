@@ -8,11 +8,11 @@ Desenvolver uma simulação de um <i>"help service desk"</i> de uma empresa. Nes
  - Criar e configurar um projeto com o ![Expo bare workflow](https://docs.expo.dev/bare/exploring-bare-workflow/);
  - Utilzar a biblioteca <b>native-base</b> para criação de telas e componentes;
  - Realizar autenticação através do ![Firebase authentication](https://firebase.google.com/);
- - Integrar a aplicação com o banco de dados ![Firebase firestore](https://firebase.google.com/) em tempo real. 
+ - Integrar a aplicação com o banco de dados ![Firebase firestore](https://firebase.google.com/) para consumo em tempo real. 
 
 ### OBSERVAÇÃO
 
-O repositório foi dividido intencionalmente em branches com as respectivas aulas, ministradas pelo professor ![Rodrigo Gonçalves](https://github.com/rodrigorgtic), totalizando então 3 aulas, inciando então na ![aula-2](https://github.com/YuryRegis/ignite-lab-rockethelp/tree/aula-2) e finalizando na ![aula-4](https://github.com/YuryRegis/ignite-lab-rockethelp/tree/aula-4).
+O repositório foi dividido intencionalmente em branches com as respectivas aulas, ministradas pelo professor ![Rodrigo Gonçalves](https://github.com/rodrigorgtic), totalizando 3 aulas, inciando então na ![aula-2](https://github.com/YuryRegis/ignite-lab-rockethelp/tree/aula-2) e finalizando na ![aula-4](https://github.com/YuryRegis/ignite-lab-rockethelp/tree/aula-4).
 
 ---
 
